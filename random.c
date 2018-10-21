@@ -6,9 +6,7 @@ int M_int = 2147483647;
 float M_float = 2147483647.0F;
 int SEED = -1;
 
-int count = 0;
-
-float generateNext(){
+float generateNextUniform(){
     if(SEED == -1){
         SEED =  time(NULL);
     }
@@ -16,23 +14,38 @@ float generateNext(){
     return SEED / M_float;
 }
 
-// int main() {
-//     FILE *file = fopen("random_out.dat", "w");
-//     if (file == NULL)
-//     {
-//         printf("Error opening file!\n");
-//         return 1;
-//     }
+float generateNextGaussian(){
+    float value;
+    for(int i = 0; i < 12; i++){
+        value += generateNextUniform();
+        i ++;
+    }
+    return value;
+}
 
-//     while(count < 10000000){
-//         int B = count;
-//         float number = generateNext();
-//         fprintf(file,"%f\n", number);
-//         count ++;
-//     }
+float generateNextSignal(){
+    return (generateNextUniform() > 0.0F) ? 1.0F : -1.0F;
+}
 
-//     fclose(file);
-//     return 0;
-// }
+int main() {
+    int count = 0;
+
+    // FILE *file = fopen("random_out.dat", "w");
+    // if (file == NULL)
+    // {
+    //     printf("Error opening file!\n");
+    //     return 1;
+    // }
+
+    while(count < 100000000){
+        int B = count;
+        float number = generateNextUniform();
+        //fprintf(file,"%f\n", number);
+        count ++;
+    }
+
+    // fclose(file);
+    return 0;
+}
 
 

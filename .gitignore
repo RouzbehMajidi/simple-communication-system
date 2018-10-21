@@ -53,3 +53,5 @@ dkms.conf
 
 # Other
 *.dat
+__pycache__/
+.DS_Store
