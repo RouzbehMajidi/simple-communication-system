@@ -1,8 +1,18 @@
 #include <stdio.h>
-#include <time.h>
 
-float generateNextUniform();
+//define variables
+extern long A;
+extern long B;
+extern long M_long;
+extern double M_double;
+extern long SEED;
 
-float generateNextGaussian();
+//define functions
+double generateNextUniform();
 
-float generateNextSignal();
+
+
+
+
+//float generateNextGaussian();
+//float generateNextSignal();

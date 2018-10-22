@@ -1,33 +1,30 @@
 #include "random.h"
 
-int A = 997;
-int B = 0;
-int M_int = 2147483647;
-float M_float = 2147483647.0F;
-int SEED = -1;
+long A = 23597; //define multiplier
+long B = 0; //define increment
+long M_long = 2147483647; //define modulus
+double M_double = 2147483647.0; //define double variation of modulus
+long SEED = 123456*8+3; //define initial seed such that its modulo 8 is 3
 
-float generateNextUniform(){
-    if(SEED == -1){
-        SEED =  time(NULL);
-    }
-    SEED = ((A * SEED + B) % M_int);
-    return SEED / M_float;
+double generateNextUniform(){ //define uniformly distributed random number generation (between 0 and 1)
+    SEED = ((A * SEED + B) % M_long); //multiplicative congruential formula
+    return SEED / M_double; //return normalized pseudo-random number
 }
 
-float generateNextGaussian(){
+/* float generateNextGaussian(){
     float value;
     for(int i = 0; i < 12; i++){
         value += generateNextUniform();
         i ++;
     }
     return value;
-}
+} */
 
-float generateNextSignal(){
+/* float generateNextSignal(){
     return (generateNextUniform() > 0.0F) ? 1.0F : -1.0F;
-}
+} */
 
-int main() {
+/* int main() {
     int count = 0;
 
     // FILE *file = fopen("random_out.dat", "w");
@@ -38,7 +35,6 @@ int main() {
     // }
 
     while(count < 100000000){
-        int B = count;
         float number = generateNextUniform();
         //fprintf(file,"%f\n", number);
         count ++;
@@ -46,6 +42,6 @@ int main() {
 
     // fclose(file);
     return 0;
-}
+} */
 
 
