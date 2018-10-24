@@ -1,4 +1,4 @@
-data = importdata('random_Gaussian_out.dat'); %import data of pseudo-random numbers
+data = importdata('../data/random_gaussian_out.dat'); %import data of pseudo-random numbers
 h = histogram(data); %create histogram
 h %#ok<NOPTS> %print out histogram details
 title('Histogram of Gaussian Pseudo-Random Number Generator'); %add title

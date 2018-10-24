@@ -6,7 +6,7 @@ int M = 100;
 float NOISE_POWER = 0.1;
 
 int main() {
-    FILE *file = fopen("signal.dat", "w");
+    FILE *file = fopen("data/signal.dat", "w");
     if (file == NULL) {
         printf("Error opening file!\n");
         return 1;

@@ -1,4 +1,7 @@
-data = importdata('autocovariance2_Gaussian.dat'); %import data of pseudo-random numbers
+%import data of pseudo-random numbers
+data = importdata('../data/autocovariance_gaussian.dat');
+
+
 figure(1); %create new window for figure
 stem(data); %create a discrete plot of the data
 title('Crosscovariances for Normally Random Numbers'); %add title
