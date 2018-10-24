@@ -18,9 +18,9 @@ double generateNextGaussian(){ //define normally distributed random number gener
     return value-6; //subtract 6 to make mean 0 and return
 }
 
-/* float generateNextSignal(){
-    return (generateNextUniform() > 0.0F) ? 1.0F : -1.0F;
-} */
+double generateNextSymbol(){
+    return (generateNextUniform() > 0.5) ? 1.0 : -1.0;
+}
 
 // int main() {
 //     int count = 0;
