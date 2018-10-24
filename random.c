@@ -2,13 +2,12 @@
 
 long A = 23597; //define multiplier
 long B = 0; //define increment
-long M_long = 2147483647; //define modulus
-double M_double = 2147483647.0; //define double variation of modulus
-long SEED = 123456*8+3; //define initial seed such that its modulo 8 is 3
+long M = 2147483647; //define modulus
+long SEED = 111111*8+3; //define initial seed such that its modulo 8 is 3
 
 double generateNextUniform(){ //define uniformly distributed random number generation (between 0 and 1)
-    SEED = ((A * SEED + B) % M_long); //multiplicative congruential formula
-    return SEED / M_double; //return normalized pseudo-random number
+    SEED = ((A * SEED + B) % M); //multiplicative congruential formula
+    return SEED / (double) M; //return normalized pseudo-random number
 }
 
 /* float generateNextGaussian(){

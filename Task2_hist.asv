@@ -1,0 +1,5 @@
+data = importdata('random_out.dat');
+histogram(data);
+title('');
+%histfit(data);
+mean(data)

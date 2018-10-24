@@ -3,8 +3,7 @@
 //define variables
 extern long A;
 extern long B;
-extern long M_long;
-extern double M_double;
+extern long M;
 extern long SEED;
 
 //define functions
