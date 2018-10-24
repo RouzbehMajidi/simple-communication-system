@@ -3,7 +3,7 @@
 
 double * read_file(int N, FILE *file){ //function to read numbers from .dat file
     double *numbers = malloc(sizeof(double)*N); //create storage array of length 10000 for random numbers
-    for (int i=0; i<=N; i++){ //loop 10000 times through file
+    for (int i=0; i<N; i++){ //loop 10000 times through file
         fscanf(file, "%lf\n", &numbers[i]); //read the file and store the random number into the array
     }
     return numbers; //return array of 10000 pseudo-random numbers
@@ -20,7 +20,7 @@ double calc_sample_average(int N, double *numbers){ //function to calculate the 
 double * calc_autocovariance(int N, int x, double *numbers){ //function to calculate the autocovariance
     double *C = malloc(sizeof(double)*100); //create array to store autocovariances
     for(int m=0; m<100; m++){ //loop through 100 values of m
-        C[m] =0; //create variable to store the sum
+        C[m] = 0; //create variable to store the sum
         for(int i=0; i<(N-m); i++){ //loop through sequence of consecutive pseudo-random numbers
             C[m] += (numbers[i]-x)*(numbers[i+m]-x); //calculate sum of consecutive sequence
         }

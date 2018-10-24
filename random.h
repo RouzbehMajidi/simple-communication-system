@@ -8,10 +8,12 @@ extern long SEED;
 
 //define functions
 double generateNextUniform();
+double generateNextGaussian();
 
 
 
 
 
-//float generateNextGaussian();
+
+
 //float generateNextSignal();
