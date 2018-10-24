@@ -11,7 +11,7 @@ double generateNextUniform(){ //define uniformly distributed random number gener
 }
 
 double generateNextGaussian(){ //define normally distributed random number generation
-    double value; //define variable to store single random number
+    double value=0; //define variable to store single random number
     for(int i = 0; i < 12; i++){ //for loop to add 12 uniformly distributed random numbers together
         value += generateNextUniform(); //sum up the pseudo-random numbers
     }
