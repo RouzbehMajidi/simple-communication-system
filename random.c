@@ -23,24 +23,18 @@ double generateNextUniform(){ //define uniformly distributed random number gener
     return (generateNextUniform() > 0.0F) ? 1.0F : -1.0F;
 } */
 
-/* int main() {
-    int count = 0;
+// int main() {
+//     int count = 0;
+//     double sum = 0;
 
-    // FILE *file = fopen("random_out.dat", "w");
-    // if (file == NULL)
-    // {
-    //     printf("Error opening file!\n");
-    //     return 1;
-    // }
+//     while(count < 100000000){
+//         sum += generateNextUniform();
+//         count ++;
+//     }
+//     sum = sum / 100000000;
 
-    while(count < 100000000){
-        float number = generateNextUniform();
-        //fprintf(file,"%f\n", number);
-        count ++;
-    }
-
-    // fclose(file);
-    return 0;
-} */
+//     printf("Sum: %0.10f\n", sum);
+//     return 0;
+// } 
 
 
