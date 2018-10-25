@@ -2,11 +2,12 @@
 
 long A = 23597; //define multiplier
 long B = 0; //define increment
-long M = 2147483647; //define modulus
+long M = 0x7FFFFFFF; //define modulus
 long SEED = 111111*8+3; //define initial seed such that its modulo 8 is 3
 
+
 double generateNextUniform(){ //define uniformly distributed random number generation (between 0 and 1)
-    SEED = ((A * SEED + B) % M); //multiplicative congruential formula
+    SEED = ((A * SEED + B) & M); //multiplicative congruential formula
     return SEED / (double) M; //return normalized pseudo-random number
 }
 
@@ -25,15 +26,24 @@ double generateNextSymbol(){
 // int main() {
 //     int count = 0;
 //     double sum = 0;
+//     int N = 100000000;
 
-//     while(count < 100000000){
-//         sum += generateNextUniform();
+//     // FILE *file = fopen("data/random_out.dat", "w");
+//     // if (file == NULL) {
+//     //     printf("Error opening file!\n");
+//     //     return 1;
+//     // }
+
+//     while(count < N){
+//         double value = generateNextUniform();
+//         sum += value;
+//         // fprintf(file,"%lf\n",value);
 //         count ++;
 //     }
-//     sum = sum / 100000000;
 
+//     sum = sum / N;
+
+//     // fclose(file);
 //     printf("Sum: %0.10f\n", sum);
 //     return 0;
 // } 
-
-
