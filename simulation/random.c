@@ -2,7 +2,7 @@
 
 long A = 23597; //define multiplier
 long B = 0; //define increment
-long M = 0x7FFFFFFE; //define modulus
+long M = 0x7FFFFFFF; //define modulus
 long SEED = 111111*8+3; //define initial seed such that its modulo 8 is 3
 
 
