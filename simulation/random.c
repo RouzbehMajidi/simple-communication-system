@@ -7,16 +7,16 @@ long SEED = 111111*8+3; //define initial seed such that its modulo 8 is 3
 
 
 double generateNextUniform(){ //define uniformly distributed random number generation (between 0 and 1)
-    SEED = ((A * SEED + B) & M); //multiplicative congruential formula
+    SEED = ((A * SEED + B) & M); //multiplicative congruential formula using bitwise mask
     return SEED / (double) M; //return normalized pseudo-random number
 }
 
 double generateNextGaussian(){ //define normally distributed random number generation
-    double value=0; //define variable to store single random number
+    double value=-6; //define variable to store single random number and initialize to -6
     for(int i = 0; i < 12; i++){ //for loop to add 12 uniformly distributed random numbers together
         value += generateNextUniform(); //sum up the pseudo-random numbers
     }
-    return value-6; //subtract 6 to make mean 0 and return
+    return value; //return value centered at a mean of 0
 }
 
 double generateNextSymbol(){
