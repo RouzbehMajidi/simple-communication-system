@@ -1,3 +1,4 @@
+clear;
 ct_data = importdata('../data/lpf_continuous.dat');
 dt_data = importdata('../data/lpf_discrete.dat');
 

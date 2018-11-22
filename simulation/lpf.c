@@ -3,7 +3,7 @@
 #include <math.h>
 
 const int N = 10; //Samples per symbol
-const int K = 50; //Number of discrete samples
+const int K = 100; //Number of discrete samples
 const int T = 100;
 const double F_3DB  = 1/ (double) T; //3dB cutoff of low pass filter
 
@@ -50,7 +50,7 @@ int main(){
 
     //Continuous Response
     for(int i = 0; i < K; i ++){
-        fprintf(continuousOutput, "%0.2lf\n", filterStepResponse(i));
+        fprintf(continuousOutput, "%0.6lf\n", filterStepResponse(i));
     }
 
     //Discrete Response
@@ -59,7 +59,7 @@ int main(){
     }
 
     for(int i = 0; i < K; i ++){
-        fprintf(discreteOutput, "%0.2lf\n", discreteResponse[i]);
+        fprintf(discreteOutput, "%0.6lf\n", discreteResponse[i]);
     }
 
     printf("Simulation Complete\n");
