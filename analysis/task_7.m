@@ -7,11 +7,11 @@ filtered_signal = importdata('../data/filtered_signal_output.dat');
 figure(1);
 hold on;
 grid on;
-subplot(2,1,1);
+subplot(2,2,1);
 plot(noisy_signal);
 grid on;
 ylabel('Pre-LPF Signal')
-subplot(2,1,2);
+subplot(2,2,3);
 plot(filtered_signal);
 grid on;
 xlabel('Frequency')
@@ -33,13 +33,12 @@ fy = (0:ny-1)*(fs/ny);
 power_x = abs(x).^2/nx;
 power_y = abs(y).^2/ny;
 
-figure(2);
 hold on;
-subplot(2,1,1);
+subplot(2,2,2);
 plot(fx,power_x)
 grid on;
 ylabel('Pre-LPF Signal Power')
-subplot(2,1,2);
+subplot(2,2,4);
 plot(fy,power_y);
 grid on;
 xlabel('Frequency')

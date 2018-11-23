@@ -46,12 +46,27 @@ int LPF_init(LPF *self, double F_3DB, int N){
     return 0;
 }
 
+int LPF_info(LPF *self){
+    printf("LPF Info\n");
+    printf("\t3dB Frequency : %0.10lf\n", self->F_3DB);
+    printf("\tN : %d samples per symbol\n", self->N);
+    printf("\tT : %0.10lf symbol period\n\n", self->T);
+    printf("\tLambda Factor : %0.10lf\n", self->LAMBDA_FACTOR);
+    printf("\tGamma Factor : %0.10lf\n\n", self->GAMMA_FACTOR);
+    printf("\tAlpha : %0.10lf\n", self->ALPHA);
+    printf("\tBeta : %0.10lf\n", self->BETA);
+    printf("\tGamma : %0.10lf\n", self->GAMMA);
+    printf("\tLambda : %0.10lf\n", self->LAMBDA);
+
+    return 0;
+}
+
 double filterStepResponse(double t,double F_3DB){
     return 1 - exp( -ALPHA_(F_3DB)*t);
 }
 
 double discreteFilter(LPF *lpf, double y_t0, double x_t0){
-    return ((lpf->BETA)*y_t0 + (lpf->LAMBDA)*x_t0)/(lpf->LAMBDA_FACTOR);
+    return ((lpf->BETA)*y_t0 + (lpf->LAMBDA)*x_t0);
 }
 
 
