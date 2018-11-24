@@ -1,8 +1,10 @@
 #include "../random.h"
 
 int main(){
-    FILE *file_input = fopen("data/random_gaussian_out.dat", "r"); //open data file containing Gaussian random numbers
-    FILE *file_output = fopen("data/autocovariance_gaussian.dat", "w"); //create output file for autocovariances
+     //open data file containing Gaussian random numbers
+    FILE *file_input = fopen("./data/random_gaussian_out.dat", "r");
+    //create output file for autocovariances
+    FILE *file_output = fopen("./data/autocovariance_gaussian.dat", "w"); 
 
     int N = 10000; //number of random numbers
     double numbers[N]; //create storage array of length 10000 for random numbers

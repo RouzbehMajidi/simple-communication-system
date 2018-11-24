@@ -5,7 +5,7 @@ data = importdata('../data/autocovariance.dat');
 figure(1);
 
 %create a discrete plot of the data
-stem(data);
+stem(0:99, data);
 title('Crosscovariances for Uniformly Random Numbers'); %add title to plot
 xlabel('Value of m'); %add x-axis label
 ylabel('Crosscovariance'); %add y-axis label
