@@ -1,5 +1,5 @@
-#include "random.h"
 #include "lpf.h"
+#include "utils.h"
 
 const double ALPHA_(double F_3DB) {
     return 2*M_PI*F_3DB;
@@ -27,13 +27,11 @@ const double GAMMA_FACTOR_(double F_3DB, double T, int N){
     return  gamma / (1 - exp(-gamma));
 }
 
-
-int LPF_init(LPF *self, double F_3DB, int N){
+int LPF_init(LPF *self, double F_3DB, double T, int N){
     self->F_3DB = F_3DB;
     self->N = N;
 
-
-    self->T = 1/F_3DB;
+    self->T = T;
 
     self->ALPHA = ALPHA_(self->F_3DB);
     self->BETA = BETA_(self->F_3DB, self->T, self->N);
@@ -47,10 +45,10 @@ int LPF_init(LPF *self, double F_3DB, int N){
 }
 
 int LPF_info(LPF *self){
-    printf("LPF Info\n");
-    printf("\t3dB Frequency : %0.10lf\n", self->F_3DB);
+    printf(MAG "LPF Info\n" RESET);
+    printf("\t3dB Frequency : %0.2lf Hz \n", self->F_3DB);
     printf("\tN : %d samples per symbol\n", self->N);
-    printf("\tT : %0.10lf symbol period\n\n", self->T);
+    printf("\tT : %0.3lf symbol period\n\n", self->T);
     printf("\tLambda Factor : %0.10lf\n", self->LAMBDA_FACTOR);
     printf("\tGamma Factor : %0.10lf\n\n", self->GAMMA_FACTOR);
     printf("\tAlpha : %0.10lf\n", self->ALPHA);
@@ -61,12 +59,12 @@ int LPF_info(LPF *self){
     return 0;
 }
 
-double filterStepResponse(double t,double F_3DB){
-    return 1 - exp( -ALPHA_(F_3DB)*t);
-}
-
 double discreteFilter(LPF *lpf, double y_t0, double x_t0){
     return ((lpf->BETA)*y_t0 + (lpf->LAMBDA)*x_t0);
+}
+
+double filterStepResponse(double t,double F_3DB){
+    return 1 - exp( -ALPHA_(F_3DB)*t);
 }
 
 

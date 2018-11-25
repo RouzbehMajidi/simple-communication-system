@@ -1,20 +1,23 @@
 #include "lpf.h"
 #include "random.h"
 
-const int SAMPLES_PER_SYMBOL = 10;
+const int SAMPLES_PER_SYMBOL = 20;
 const int NUMBER_OF_SYMBOLS = 100;
 
 const double LPF_F_3DB = 100;
 
-const float NOISE_POWER = 0.01;
+const float NOISE_POWER = 0.10;
 
-double samples[NUMBER_OF_SYMBOLS*SAMPLES_PER_SYMBOL];
+double currentSample = 0.0;
+double nextSample = 0.0;
+
 
 int main() {
-    FILE *noisySignalOutput = fopen("data/noisy_signal_output.dat", "w");
-    FILE *filteredSignalOutput = fopen("data/filtered_signal_output.dat", "w");
+    FILE *transmittedSignalOutput = fopen("data/task7/transmitted_signal_output.dat", "w");
+    FILE *receivedSignalOutput = fopen("data/task7/received_signal_output.dat", "w");
+    FILE *filteredSignalOutput = fopen("data/task7/filtered_signal_output.dat", "w");
 
-    if (noisySignalOutput == NULL || filteredSignalOutput == NULL) {
+    if (transmittedSignalOutput == NULL || receivedSignalOutput == NULL || filteredSignalOutput == NULL) {
         printf("Error opening file!\n");
         return 1;
     }
@@ -26,25 +29,27 @@ int main() {
     LPF_info(&lpf);
      
     printf("Simulation Started.\n");
-    samples[0] = 0.0;
-    fprintf(filteredSignalOutput,"%0.10lf\n", samples[0]);
+    currentSample = 0.0;
+    fprintf(filteredSignalOutput,"%0.10lf\n", currentSample);
 
     int currentSymbol = 0;
     int k = 0;
     while(currentSymbol < NUMBER_OF_SYMBOLS - 1){
         double value = generateNextSymbol();
-        int currentSample = 0;
-        while(currentSample < SAMPLES_PER_SYMBOL - 1){
-            double noise = NOISE_POWER*generateNextGaussian();
+        int currentSampleIndex = 0;
+        while(currentSampleIndex < SAMPLES_PER_SYMBOL - 1){
+            double noise = generateNextGaussian(0, NOISE_POWER);;
             double signal = value + noise;
             
-            samples[k + 1] = discreteFilter(&lpf, samples[k], signal);
+            currentSample = nextSample;
+            nextSample = discreteFilter(&lpf, currentSample, signal);
 
-            fprintf(noisySignalOutput,"%0.10lf\n", signal);
-            fprintf(filteredSignalOutput,"%0.10lf\n", samples[k + 1]/(lpf.LAMBDA_FACTOR));
+            fprintf(transmittedSignalOutput,"%0d\n", (int) value);
+            fprintf(receivedSignalOutput,"%0.10lf\n", signal);
+            fprintf(filteredSignalOutput,"%0.10lf\n", nextSample);
 
             k ++;
-            currentSample ++;
+            currentSampleIndex ++;
         }
         currentSymbol ++;
     }

@@ -1,45 +1,73 @@
 close all;
 clear;
 
-noisy_signal = importdata('../data/noisy_signal_output.dat'); 
-filtered_signal = importdata('../data/filtered_signal_output.dat');
+tx_signal = importdata('../data/task7/transmitted_signal_output.dat'); 
+recv_signal = importdata('../data/task7/received_signal_output.dat'); 
+filtered_signal = importdata('../data/task7/filtered_signal_output.dat');
 
 figure(1);
 hold on;
+
+subplot(3,2,1);
+plot(tx_signal);
 grid on;
-subplot(2,2,1);
-plot(noisy_signal);
+xlabel('Time');
+ylabel('Transmitted Signal');
+ylim([-1.5 1.5]);
+
+subplot(3,2,3);
+plot(recv_signal);
 grid on;
-ylabel('Pre-LPF Signal')
-subplot(2,2,3);
+xlabel('Time');
+ylabel('Pre-LPF Received Signal');
+ylim([-1.5 1.5]);
+
+subplot(3,2,5);
 plot(filtered_signal);
 grid on;
-xlabel('Frequency')
-ylabel('Post-LPF Signal')
+xlabel('Time');
+ylabel('Post-LPF Received Signal');
+ylim([-1.5 1.5]);
 
 fs = 1000;
 
-x = fft(noisy_signal);
+t = fft(tx_signal);
+t = fftshift(t);
 
-nx = length(noisy_signal);
-fx = (0:nx-1)*(fs/nx);
+nt = length(tx_signal);
+ft = (-nt/2:nt/2-1)*(fs/nt);
+
+x = fft(recv_signal);
+x = fftshift(x);
+
+nx = length(recv_signal);
+fx = (-nx/2:nx/2-1)*(fs/nx);
 
 y = fft(filtered_signal);
+y = fftshift(y);
 
 ny = length(filtered_signal);
-fy = (0:ny-1)*(fs/ny);
+fy = (-ny/2:ny/2-1)*(fs/ny);
 
 
+power_t = abs(t).^2/nt;
 power_x = abs(x).^2/nx;
 power_y = abs(y).^2/ny;
 
-hold on;
-subplot(2,2,2);
+subplot(3,2,2);
+plot(ft,power_t)
+grid on;
+xlabel('Frequency');
+ylabel('Transmitted Signal Power');
+
+subplot(3,2,4);
 plot(fx,power_x)
 grid on;
-ylabel('Pre-LPF Signal Power')
-subplot(2,2,4);
+xlabel('Frequency');
+ylabel('Pre-LPF Received Signal Power');
+
+subplot(3,2,6);
 plot(fy,power_y);
 grid on;
-xlabel('Frequency')
-ylabel('Post-LPF Signal Power')
+xlabel('Frequency');
+ylabel('Post-LPF Received Signal Power');

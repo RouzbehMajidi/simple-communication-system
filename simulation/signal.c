@@ -16,7 +16,7 @@ int main() {
         float value = generateNextSignal();
         int n = 0;
         while(n < N){
-            float noise = (NOISE_POWER/2)*generateNextGaussian();
+            float noise = generateNextGaussian(0, NOISE_POWER);
             float signal = value + noise;
             fprintf(file,"%f\n", signal);
             // fprintf(file, "\t - Signal: %f\n", value);

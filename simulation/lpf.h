@@ -15,7 +15,7 @@ typedef struct LPF {
     double GAMMA_FACTOR;
 } LPF;
 
-int LPF_init(LPF *self, double F_3DB, int N);
+int LPF_init(LPF *self, double F_3DB, double T, int N);
 int LPF_info(LPF *self);
 
 double discreteFilter(LPF *lpf, double y_t0, double x_t0);

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 //define variables
 extern long A;
@@ -8,5 +9,5 @@ extern long SEED;
 
 //define functions
 double generateNextUniform();
-double generateNextGaussian();
-double generateNextSymbol();
+double generateNextGaussian(double mean, double variance);
+int generateNextSymbol();

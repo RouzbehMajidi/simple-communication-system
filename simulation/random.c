@@ -11,16 +11,16 @@ double generateNextUniform(){ //define uniformly distributed random number gener
     return SEED / (double) M; //return normalized pseudo-random number
 }
 
-double generateNextGaussian(){ //define normally distributed random number generation
-    double value=-6; //define variable to store single random number and initialize to -6
+double generateNextGaussian(double mean, double variance){ //define normally distributed random number generation
+    double value=-6 + mean; //define variable to store single random number and initialize to -6
     for(int i = 0; i < 12; i++){ //for loop to add 12 uniformly distributed random numbers together
         value += generateNextUniform(); //sum up the pseudo-random numbers
     }
-    return value; //return value centered at a mean of 0
+    return value*sqrt(variance); //return value centered at a mean of 0
 }
 
-double generateNextSymbol(){
-    return (generateNextUniform() > 0.5) ? 1.0 : -1.0;
+int generateNextSymbol(){
+    return (generateNextUniform() > 0.5) ? 1 : -1;
 }
 
 // int main() {
