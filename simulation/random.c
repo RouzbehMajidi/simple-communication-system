@@ -19,8 +19,8 @@ double generateNextGaussian(){ //define normally distributed random number gener
     return value; //return value centered at a mean of 0
 }
 
-double generateNextSymbol(){
-    return (generateNextUniform() > 0.5) ? 1.0 : -1.0;
+double generateNextSymbol(){ //define function to generate NRZ PAM signal of pseudo-random values
+    return (generateNextUniform() > 0.5) ? 1.0 : -1.0; //encode signal as 1s and -1s
 }
 
 // int main() {
