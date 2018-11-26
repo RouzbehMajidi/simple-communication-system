@@ -4,13 +4,13 @@
 #include "random.h"
 #include "utils.h"
 
-const int MAX_NUMBER_OF_SYMBOLS = 250;
+const int MAX_NUMBER_OF_SYMBOLS = 25;
 const int SAMPLES_PER_SYMBOL = 10;
 
-const double NOISE_POWER = 0.1;
+const double NOISE_POWER = 10;
 
-const double T_SYMBOL = 0.01; //seconds
-const double TIME_STEP = 0.0001; // seconds
+const double T_SYMBOL = 0.001; //seconds
+const double TIME_STEP = 0.000001;
 
 static volatile int isRunning = 1;
 
@@ -21,11 +21,11 @@ void keyBoardIntercept(int value) {
 int main(void) {
     signal(SIGINT, keyBoardIntercept);
 
-    FILE *transmittedSymbolOutput = fopen("data/task8/transmitted_symbol_output.dat", "w");
-    FILE *receivedSignalOutput = fopen("data/task8/received_signal_output.dat", "w");
-    FILE *filteredSignalOutput = fopen("data/task8/filtered_signal_output.dat", "w");
-    FILE *signalCorrelationOutput = fopen("data/task8/signal_correlation_output.dat", "w");
-    FILE *digitalSignalOutput = fopen("data/task8/received_symbol_output.dat", "w");
+    FILE *transmittedSymbolOutput = fopen("../data/task8/transmitted_symbol_output.dat", "w");
+    FILE *receivedSignalOutput = fopen("../data/task8/received_signal_output.dat", "w");
+    FILE *filteredSignalOutput = fopen("../data/task8/filtered_signal_output.dat", "w");
+    FILE *signalCorrelationOutput = fopen("../data/task8/signal_correlation_output.dat", "w");
+    FILE *digitalSignalOutput = fopen("../data/task8/received_symbol_output.dat", "w");
 
     if (transmittedSymbolOutput == NULL || 
         receivedSignalOutput == NULL || 
@@ -38,7 +38,7 @@ int main(void) {
     }
 
     LPF lpf;
-
+    
     double LPF_F_3DB = 1/T_SYMBOL;
     double T_SAMPLE = T_SYMBOL/SAMPLES_PER_SYMBOL;
     double MAX_TIME = T_SYMBOL*MAX_NUMBER_OF_SYMBOLS;
@@ -52,9 +52,9 @@ int main(void) {
 
 
     printf(MAG "\nSimulation Started.\n" RESET);
-    printf("\tTime Step: %lf\n",TIME_STEP);
-    printf("\tSymbol Period: %lf s OR 1 SYMBOL every %ld time step(s)\n",T_SYMBOL,T_SYMBOL_LONG);
-    printf("\tSample Period: %lf s OR 1 SAMPLE every %ld time step(s)\n",T_SAMPLE, T_SAMPLE_LONG);
+    printf("\tTime Step: %0.10e seconds\n",TIME_STEP);
+    printf("\tSymbol Period: %0.10e s OR 1 SYMBOL every %ld time step(s)\n",T_SYMBOL,T_SYMBOL_LONG);
+    printf("\tSample Period: %0.10e s OR 1 SAMPLE every %ld time step(s)\n",T_SAMPLE, T_SAMPLE_LONG);
     printf("\tMax Time: %lf s OR %ld time step(s)\n\n",MAX_TIME, MAX_TIME_LONG);
 
     //Simulation time
@@ -96,24 +96,24 @@ int main(void) {
             transmittedSymbol = generateNextSymbol();
             symbolCount ++;
         }
-        fprintf(transmittedSymbolOutput,"%d\n", transmittedSymbol);
+        // fprintf(transmittedSymbolOutput,"%d\n", transmittedSymbol);
 
         //Channel Noise (CT) [Channel]
         double noise = generateNextGaussian(0, NOISE_POWER);
         double receivedSignalValue = transmittedSymbol + noise;
-        fprintf(receivedSignalOutput, "%0.10lf\n", receivedSignalValue);
+        // fprintf(receivedSignalOutput, "%0.10lf\n", receivedSignalValue);
 
         //Low Pass Filter (CT) [Receiver]
         currentSample = nextSample;
         nextSample = discreteFilter(&lpf, currentSample, receivedSignalValue);
-        fprintf(filteredSignalOutput, "%0.10lf\n", nextSample/(lpf.LAMBDA_FACTOR));
+        // fprintf(filteredSignalOutput, "%0.10lf\n", nextSample/(lpf.LAMBDA_FACTOR));
 
         //Correlator (DT) [Receiver - Sample Rate]
         if(isSample){
             symbolCorrelation += nextSample/(lpf.LAMBDA_FACTOR);
             sampleCount ++;
         }
-        fprintf(signalCorrelationOutput, "%0.10lf\n", symbolCorrelation);
+        // fprintf(signalCorrelationOutput, "%0.10lf\n", symbolCorrelation);
 
         //Digitization (DT) [Receiver - Symbol Rate]
         if(isNextSymbol){
@@ -123,7 +123,7 @@ int main(void) {
             }
         }
         if(receivedSymbol != 0){
-            fprintf(digitalSignalOutput,"%d\n", receivedSymbol);
+            // fprintf(digitalSignalOutput,"%d\n", receivedSymbol);
         }
 
         currentTime ++;
@@ -134,9 +134,10 @@ int main(void) {
     }else{
         printf(YEL "\n\nSimulation Ended.\n" RESET);
     }
-     
+    
     printf("\tSample rate: %d samples per symbol \n", SAMPLES_PER_SYMBOL);
-    printf("\tNoise power: %0.3lf * signal power \n", NOISE_POWER);
+    printf("\tNoise power: %0.3lf * signal power ≡ %0.2lf dBW\n", NOISE_POWER, 10*log10(NOISE_POWER));
+    printf("\tSNR: %0.2lf dBW\n", 10*log10(1/NOISE_POWER));
     printf("\tSymbols generated: %d \n", symbolCount);
     printf("\tNumber of samples: %d \n", sampleCount);
     printf("\tError count: %d \n", errorCount);
