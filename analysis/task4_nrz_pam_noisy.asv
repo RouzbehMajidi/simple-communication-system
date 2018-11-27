@@ -1,0 +1,11 @@
+data1 = importdata('../data/Task5/NRZ_PAM_with_noise_10_0.1.dat'); %import NRZ PAM data N=10
+data2 = importdata('../data/Task5/NRZ_PAM_with_noise_10_0.25.dat'); %import NRZ PAM data N=20
+data3 = importdata('../data/Task5/NRZ_PAM_with_noise_20_0.1.dat');
+data4 = importdata('../data/Task5/NRZ_PAM_with_noise_20_0.25.dat');
+eyediagram(data1, 20, 0.2, 4); %draw eye diagram for N=10
+title('Eye Diagram for N=10'); %add title
+xlabel('Time (s)'); %add x-axis label
+eyediagram(data2, 20); %draw eye diagram for N=20
+title('Eye Diagram for N=20'); %add title
+xlabel('Time (s)'); %add x-axis label
+
