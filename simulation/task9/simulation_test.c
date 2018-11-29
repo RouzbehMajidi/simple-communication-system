@@ -10,7 +10,7 @@ const int SAMPLES_PER_SYMBOL = 10;
 double NOISE_POWER = 0.1;
 
 const double T_SYMBOL = 0.01; //seconds
-const double TIME_STEP = 0.00001;
+const double TIME_STEP = 0.0001;
 
 static volatile int isRunning = 1;
 
@@ -21,11 +21,11 @@ void keyBoardIntercept(int value) {
 int main(void) {
     signal(SIGINT, keyBoardIntercept);
 
-    FILE *transmittedSymbolOutput = fopen("data/task8/transmitted_symbol_output.dat", "w");
-    FILE *receivedSignalOutput = fopen("data/task8/received_signal_output.dat", "w");
-    FILE *filteredSignalOutput = fopen("data/task8/filtered_signal_output.dat", "w");
-    FILE *signalCorrelationOutput = fopen("data/task8/signal_correlation_output.dat", "w");
-    FILE *digitalSignalOutput = fopen("data/task8/received_symbol_output.dat", "w");
+    FILE *transmittedSymbolOutput = fopen("data/task9/test_data/transmitted_symbol_output.dat", "w");
+    FILE *receivedSignalOutput = fopen("data/task9/test_data/received_signal_output.dat", "w");
+    FILE *filteredSignalOutput = fopen("data/task9/test_data/filtered_signal_output.dat", "w");
+    FILE *signalCorrelationOutput = fopen("data/task9/test_data/signal_correlation_output.dat", "w");
+    FILE *digitalSignalOutput = fopen("data/task9/test_data/received_symbol_output.dat", "w");
 
     if (transmittedSymbolOutput == NULL || 
         receivedSignalOutput == NULL || 
@@ -39,7 +39,7 @@ int main(void) {
 
     LPF lpf;
     
-    double LPF_F_3DB = 1/T_SYMBOL;
+    double LPF_F_3DB = 0.218/T_SYMBOL;
     double T_SAMPLE = T_SYMBOL/SAMPLES_PER_SYMBOL;
     double MAX_TIME = T_SYMBOL*MAX_NUMBER_OF_SYMBOLS;
 

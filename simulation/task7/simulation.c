@@ -1,15 +1,15 @@
 #include <signal.h>
 
-#include "lpf.h"
-#include "random.h"
-#include "utils.h"
+#include "../lpf.h"
+#include "../random.h"
+#include "../utils.h"
 
 const int MAX_NUMBER_OF_SYMBOLS = 25;
 const int SAMPLES_PER_SYMBOL = 10;
 
-const double NOISE_POWER = 10;
+double NOISE_POWER = 0.1;
 
-const double T_SYMBOL = 0.001; //seconds
+const double T_SYMBOL = 0.01; //seconds
 const double TIME_STEP = 0.00001;
 
 static volatile int isRunning = 1;
@@ -32,6 +32,8 @@ int main(void) {
         printf("Error opening file!\n");
         return 1;
     }
+
+    NOISE_POWER = (NOISE_POWER * T_SYMBOL)/ SAMPLES_PER_SYMBOL;
 
     LPF lpf;
     

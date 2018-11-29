@@ -1,11 +1,11 @@
 close all;
 clear;
 
-tx_signal = importdata('../data/task8/transmitted_symbol_output.dat'); 
-recv_signal = importdata('../data/task8/received_signal_output.dat'); 
-filtered_signal = importdata('../data/task8/filtered_signal_output.dat');
-symbol_average = importdata('../data/task8/signal_correlation_output.dat');
-digital_signal = importdata('../data/task8/received_symbol_output.dat');
+tx_signal = importdata('../data/task9/test_data/transmitted_symbol_output.dat'); 
+recv_signal = importdata('../data/task9/test_data/received_signal_output.dat'); 
+filtered_signal = importdata('../data/task9/test_data/filtered_signal_output.dat');
+symbol_average = importdata('../data/task9/test_data/signal_correlation_output.dat');
+digital_signal = importdata('../data/task9/test_data/received_symbol_output.dat');
 
 figure(1);
 hold on;

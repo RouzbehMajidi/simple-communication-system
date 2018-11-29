@@ -5,14 +5,14 @@
 #include "../utils.h"
 
 const int MAX_NUMBER_OF_SYMBOLS = 250000;
-const int SAMPLES_PER_SYMBOL = 10;
+const int SAMPLES_PER_SYMBOL = 5;
 
 double NOISE_POWER = 10000;
 const double MIN_NOISE_POWER = 0.001;
 const double SNR_STEP = 2;
 
 const double T_SYMBOL = 0.01; //seconds
-const double TIME_STEP = 0.001;
+const double TIME_STEP = 0.0001;
 
 static volatile int isRunning = 1;
 
@@ -23,8 +23,8 @@ void keyBoardIntercept(int value) {
 int main(void) {
     signal(SIGINT, keyBoardIntercept);
 
-    FILE *snrOutput = fopen("data/task8/SNR_output_1.dat", "w");
-    FILE *errorRateOutput = fopen("data/task8/error_rate_output.dat", "w");
+    FILE *snrOutput = fopen("data/task9/part_b/SNR_output_5.dat", "w");
+    FILE *errorRateOutput = fopen("data/task9/part_b/error_rate_output_5.dat", "w");
 
     if (snrOutput == NULL || 
         errorRateOutput == NULL) {
@@ -35,7 +35,7 @@ int main(void) {
 
     LPF lpf;
     
-    double LPF_F_3DB = 1/T_SYMBOL;
+    double LPF_F_3DB = 0.218/T_SYMBOL;
     double T_SAMPLE = T_SYMBOL/SAMPLES_PER_SYMBOL;
     double MAX_TIME = T_SYMBOL*MAX_NUMBER_OF_SYMBOLS;
 
