@@ -1,7 +1,7 @@
 #include "random.h"
 #include "utils.h"
 
-int MAX_NUMBER_OF_SYMBOLS = 100; //number of symbols M
+int MAX_NUMBER_OF_SYMBOLS = 250; //number of symbols M
 int SAMPLES_PER_SYMBOL[2] = {10, 20}; //sampling rate N
 
 double NOISE_POWER[2] = {0.1, 0.25}; //desired noise power referenced to signal power 
