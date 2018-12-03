@@ -5,14 +5,15 @@
 #include "../utils.h"
 
 const int MAX_NUMBER_OF_SYMBOLS = 250000;
-const int SAMPLES_PER_SYMBOL = 5;
+const int MAX_ERRORS = 1000;
+const int SAMPLES_PER_SYMBOL = 20;
 
 double NOISE_POWER = 10000;
 const double MIN_NOISE_POWER = 0.001;
 const double SNR_STEP = 2;
 
 const double T_SYMBOL = 0.01; //seconds
-const double TIME_STEP = 0.0001;
+const double TIME_STEP = 0.0005;
 
 static volatile int isRunning = 1;
 
@@ -23,11 +24,9 @@ void keyBoardIntercept(int value) {
 int main(void) {
     signal(SIGINT, keyBoardIntercept);
 
-    FILE *snrOutput = fopen("data/task9/part_b/SNR_output_5.dat", "w");
-    FILE *errorRateOutput = fopen("data/task9/part_b/error_rate_output_5.dat", "w");
+    FILE *output = fopen("data/task9/part_b/output_5.dat", "w");
 
-    if (snrOutput == NULL || 
-        errorRateOutput == NULL) {
+    if (output == NULL) {
 
         printf("Error opening file!\n");
         return 1;
@@ -113,20 +112,25 @@ int main(void) {
                 if(receivedSymbol != transmittedSymbol){
                     errorCount ++;
                 }
+
+                if(errorCount == MAX_ERRORS){
+                    break;
+                }
             }
 
             currentTime ++;
         }
-        fprintf(snrOutput, "%0.4lf\n",SAMPLES_PER_SYMBOL/(NOISE_POWER));
-        fprintf(errorRateOutput, "%0.10lf\n",(double) errorCount/symbolCount);
+        fprintf(output, "%0.6lf,",NOISE_POWER);
+        fprintf(output, "%0.4lf,",SAMPLES_PER_SYMBOL/(NOISE_POWER));
+        fprintf(output, "%d,",errorCount);
+        fprintf(output, "%d\n",symbolCount);
 
         runCount++;
         NOISE_POWER /= SNR_STEP;
         
     }
 
-    fclose(snrOutput);
-    fclose(errorRateOutput);
+    fclose(output);
 
     return 0;
 }

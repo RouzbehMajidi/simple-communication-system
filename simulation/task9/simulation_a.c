@@ -4,13 +4,13 @@
 #include "../random.h"
 #include "../utils.h"
 
-const int MAX_NUMBER_OF_SYMBOLS = 25;
-const int SAMPLES_PER_SYMBOL = 10;
+const int MAX_NUMBER_OF_SYMBOLS = 1000;
+const int SAMPLES_PER_SYMBOL = 5;
 
 double NOISE_POWER = 0.1;
 
 const double T_SYMBOL = 0.01; //seconds
-const double TIME_STEP = 0.0001;
+const double TIME_STEP = 0.001;
 
 static volatile int isRunning = 1;
 
@@ -47,7 +47,6 @@ int main(void) {
 
     LPF_init(&lpf, LPF_F_3DB, T_SYMBOL, SAMPLES_PER_SYMBOL);
     LPF_info(&lpf);
-
 
     printf(MAG "\nSimulation Started.\n" RESET);
     printf("\tTime Step: %0.10e seconds\n",TIME_STEP);

@@ -5,7 +5,8 @@
 #include "../utils.h"
 
 const int MAX_NUMBER_OF_SYMBOLS = 250000;
-const int SAMPLES_PER_SYMBOL = 10;
+const int MAX_ERRORS = 1000;
+const int SAMPLES_PER_SYMBOL = 5;
 
 double NOISE_POWER = 10000;
 const double MIN_NOISE_POWER = 0.001;
@@ -23,12 +24,9 @@ void keyBoardIntercept(int value) {
 int main(void) {
     signal(SIGINT, keyBoardIntercept);
 
-    FILE *snrOutput = fopen("data/task8/SNR_output_1.dat", "w");
-    FILE *errorRateOutput = fopen("data/task8/error_rate_output.dat", "w");
+    FILE *output = fopen("data/task8/output.dat", "w");
 
-    if (snrOutput == NULL || 
-        errorRateOutput == NULL) {
-
+    if (output == NULL) {
         printf("Error opening file!\n");
         return 1;
     }
@@ -45,7 +43,6 @@ int main(void) {
 
     LPF_init(&lpf, LPF_F_3DB, T_SYMBOL, SAMPLES_PER_SYMBOL);
     LPF_info(&lpf);
-
 
     printf(MAG "\nSimulation Started.\n" RESET);
     printf("\tTime Step: %0.10e seconds\n",TIME_STEP);
@@ -113,20 +110,25 @@ int main(void) {
                 if(receivedSymbol != transmittedSymbol){
                     errorCount ++;
                 }
+
+                if(errorCount == MAX_ERRORS){
+                    break;
+                }
             }
 
             currentTime ++;
         }
-        fprintf(snrOutput, "%0.4lf\n",SAMPLES_PER_SYMBOL/(NOISE_POWER));
-        fprintf(errorRateOutput, "%0.10lf\n",(double) errorCount/symbolCount);
+        fprintf(output, "%0.6lf,",NOISE_POWER);
+        fprintf(output, "%0.4lf,",SAMPLES_PER_SYMBOL/(NOISE_POWER));
+        fprintf(output, "%d,",errorCount);
+        fprintf(output, "%d\n",symbolCount);
 
         runCount++;
         NOISE_POWER /= SNR_STEP;
         
     }
 
-    fclose(snrOutput);
-    fclose(errorRateOutput);
+    fclose(output);
 
     return 0;
 }
