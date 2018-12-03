@@ -71,7 +71,6 @@ d = fftshift(d);
 nd = length(digital_signal);
 fd = (-nd/2:nd/2-1)*(fs/nd);
 
-
 power_t = 10*log10(abs(t).^2/nt);
 power_x = 10*log10(abs(x).^2/nx);
 power_y = 10*log10(abs(y).^2/ny);

@@ -8,7 +8,7 @@ int main() {
     }
     
     for(int i = 0; i < 20000; i++){
-        double number = generateNextGaussian();
+        double number = generateNextGaussian(0,1);
         fprintf(file,"%lf\n", number);
     }
 
