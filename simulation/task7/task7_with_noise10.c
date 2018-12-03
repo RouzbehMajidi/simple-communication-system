@@ -107,29 +107,31 @@ int main(void) {
 
         //Channel Noise (CT) [Channel]
         double noise = generateNextGaussian(0, NOISE_POWER); //generate noise power
-        double receivedSignalValue = transmittedSymbol + noise;
-        fprintf(receivedSignalOutput, "%0.10lf\n", receivedSignalValue);
+        double receivedSignalValue = transmittedSymbol + noise; //add noise to the tx symbol
+        fprintf(receivedSignalOutput, "%0.10lf\n", receivedSignalValue); //print to file
 
         //Low Pass Filter (CT) [Receiver]
         currentSample = nextSample;
-        nextSample = discreteFilter(&lpf, currentSample, receivedSignalValue);
-        fprintf(filteredSignalOutput, "%0.10lf\n", nextSample/(lpf.LAMBDA_FACTOR));
+        nextSample = discreteFilter(&lpf, currentSample, receivedSignalValue); //apply lpf
+        fprintf(filteredSignalOutput, "%0.10lf\n", nextSample/(lpf.LAMBDA_FACTOR)); //print to file
 
-        currentTime ++;
+        currentTime ++; //increment the time
     }
 
     if(isRunning){
-        printf(GRN "\n\nSimulation Complete.\n" RESET);
+        printf(GRN "\n\nSimulation Complete.\n" RESET); //simulation completed successfully
     }else{
-        printf(YEL "\n\nSimulation Ended.\n" RESET);
+        printf(YEL "\n\nSimulation Ended.\n" RESET); //simulation interrupted
     }
     
+    //print info about the simulation
     printf("\tSample rate: %d samples per symbol \n", SAMPLES_PER_SYMBOL);
     printf("\tNoise power: %0.3lf * signal power ≡ %0.2lf dBW\n", NOISE_POWER, 10*log10(NOISE_POWER));
     printf("\tSNR: %0.2lf dB\n", 10*log10(1/NOISE_POWER));
     printf("\tSymbols generated: %d \n", symbolCount);
     printf("\tNumber of samples: %d \n", sampleCount);
 
+    //close the files
     fclose(transmittedSymbolOutput);
     fclose(receivedSignalOutput);
     fclose(filteredSignalOutput);

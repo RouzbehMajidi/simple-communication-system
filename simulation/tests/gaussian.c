@@ -8,7 +8,7 @@ int main(){
     //for loop to generate num_rand number of pseudo-random numbers
     for(int i=0; i<num_rand; i++){
         //generate pseudo-random number
-        number = generateNextGaussian();
+        number = generateNextGaussian(0,1);
         //write numbers to file
         fprintf(file, "%f\n", number); 
     }

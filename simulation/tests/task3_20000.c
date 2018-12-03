@@ -7,8 +7,10 @@ int main(){
     double number; //create variable to store a random number
     FILE *file = fopen("./data/random_Gaussian_out.dat", "w"); //create output file to write numbers
     for(int i=0; i<num_rand; i++){ //for loop to generate num_rand number of pseudo-random numbers
-        number = generateNextGaussian(); //generate pseudo-random number and store in array
+        number = generateNextGaussian(0,1); //generate pseudo-random number and store in array
         fprintf(file, "%f\n", number); //write numbers to file
     }
+    fclose(file);
+    return 0;
 }
 
