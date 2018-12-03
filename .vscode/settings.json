@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "random.h": "c"
+        "random.h": "c",
+        "signal.h": "c",
+        "lpf.h": "c"
     }
 }

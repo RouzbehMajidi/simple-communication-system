@@ -11,25 +11,23 @@ hold on;
 subplot(3,2,1);
 plot(tx_signal);
 grid on;
-title('Transmitted Signal');
-xlabel('Sample');
-ylabel('Amplitude');
+title('T
+xlabel('Time');
+ylabel('Transmitted Signal');
 ylim([-1.5 1.5]);
 
 subplot(3,2,3);
 plot(recv_signal);
 grid on;
-title('Pre-LPF Received Signal');
-xlabel('Sample');
-ylabel('Amplitude');
+xlabel('Time');
+ylabel('Pre-LPF Received Signal');
 ylim([-1.5 1.5]);
 
 subplot(3,2,5);
 plot(filtered_signal);
 grid on;
-title('Post-LPF Received Signal');
-xlabel('Sample');
-ylabel('Amplitude');
+xlabel('Time');
+ylabel('Post-LPF Received Signal');
 ylim([-1.5 1.5]);
 
 fs = 1000;
@@ -60,20 +58,17 @@ power_y = abs(y).^2/ny;
 subplot(3,2,2);
 plot(ft,power_t)
 grid on;
-title('Transmitted Signal Power Spectrum');
 xlabel('Frequency');
-ylabel('Amplitude');
+ylabel('Transmitted Signal Power');
 
 subplot(3,2,4);
 plot(fx,power_x)
 grid on;
-title('Pre-LPF Received Signal Power');
 xlabel('Frequency');
-ylabel('Amplitude');
+ylabel('Pre-LPF Received Signal Power');
 
 subplot(3,2,6);
 plot(fy,power_y);
 grid on;
-ylabel('Post-LPF Received Signal Power');
 xlabel('Frequency');
-ylabel('Amplitude');
+ylabel('Post-LPF Received Signal Power');

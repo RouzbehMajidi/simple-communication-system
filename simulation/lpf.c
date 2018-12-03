@@ -101,14 +101,6 @@ double filterStepResponse(double t,double F_3DB){
 //     LPF_init(&lpf, F_3DB, T, N); //initialize the LPF
 //     LPF_info(&lpf); //print LPF info to terminal
 
-//     //print information about the parameters of the low pass filter
-//     // printf("Lambda Factor : %0.10lf\n", LAMBDA_FACTOR());
-//     // printf("Gamma Factor : %0.10lf\n", GAMMA_FACTOR());
-//     // printf("\tAlpha : %0.10lf\n", ALPHA());
-//     // printf("\tBeta : %0.10lf\n", BETA());
-//     // printf("\tGamma : %0.10lf\n", GAMMA());
-//     // printf("\tLambda : %0.10lf\n", LAMBDA());
-
 //     int X = 1; //unit step input for t or n > 0
 
 //     //Continuous Response
