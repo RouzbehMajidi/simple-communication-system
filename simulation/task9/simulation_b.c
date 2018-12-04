@@ -4,7 +4,7 @@
 #include "../random.h"
 #include "../utils.h"
 
-const int MAX_NUMBER_OF_SYMBOLS = 250000; //Set constant for total number of symbols to simulate per simulation runs
+const int MAX_NUMBER_OF_SYMBOLS = 250000; //Set constant for total number of symbols to simulate per runs
 const int MAX_ERRORS = 1000; //Set constant for maximum errors to look for per simulation run
 const int SAMPLES_PER_SYMBOL = 5; //Set constant for number of samples to take per symbol
 
@@ -15,7 +15,7 @@ const double SNR_STEP = 2; //Step to divide noise power by after ever simulation
 const double T_SYMBOL = 0.01; //seconds //Symbol period of signal
 const double TIME_STEP = 0.0005; //Time step of signal
 
-static volatile int isRunning = 1; //Boolean helper for gracefully stoping simulation without loss of results
+static volatile int isRunning = 1; //Boolean helper to gracefully stop simulation without loss of results
 
 //Helper function for interncepting keyboard interrupts
 void keyBoardIntercept(int value) {
@@ -86,8 +86,8 @@ int main(void) {
             fflush(stdout);
 
             int isSample = currentTime % T_SAMPLE_LONG == 0; //Determine if current time is a sample 
-            int isSymbol = currentTime % T_SYMBOL_LONG == 0; //Determine if current time is start of a symbol
-            int isNextSymbol = (currentTime + 1) % T_SYMBOL_LONG == 0; //Determine if current time is end of symbol
+            int isSymbol = currentTime % T_SYMBOL_LONG == 0; //Determine if current time is symbol start
+            int isNextSymbol = (currentTime + 1) % T_SYMBOL_LONG == 0; //Determine if symbol end
             
             //Check this is the start of a symbol generate a symbol value
             if(isSymbol){

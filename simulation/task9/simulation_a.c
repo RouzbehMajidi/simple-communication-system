@@ -4,7 +4,7 @@
 #include "../random.h"
 #include "../utils.h"
 
-const int MAX_NUMBER_OF_SYMBOLS = 1000; //Set constant for total number of symbols to simulate per simulation runs
+const int MAX_NUMBER_OF_SYMBOLS = 1000; //Set constant for total number of symbols to simulate runs
 const int SAMPLES_PER_SYMBOL = 5; //Set constant for maximum errors to look for per simulation run
 
 double NOISE_POWER = 0.1; //Variable for simulation noise power
@@ -12,7 +12,7 @@ double NOISE_POWER = 0.1; //Variable for simulation noise power
 const double T_SYMBOL = 0.01; //seconds //Symbol period of signal
 const double TIME_STEP = 0.001; //Time step of signal
 
-static volatile int isRunning = 1; //Boolean helper for gracefully stoping simulation without loss of results
+static volatile int isRunning = 1; //Boolean helper to gracefully stop simulation without loss of results
 
 void keyBoardIntercept(int value) {
     isRunning = 0;
