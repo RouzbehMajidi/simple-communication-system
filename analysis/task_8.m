@@ -4,7 +4,9 @@ clear;
 data_5 = csvread("../data/task8/output_5.dat");
 data_10 = csvread("../data/task8/output_10.dat");
 data_20 = csvread("../data/task8/output_20.dat");
+data = csvread("../data/task8/output.dat");
 snr_values = 10e-3:0.1:10e3;
+
 
 snr_dB_5 = 10*log10(data_5(:,2));
 snr_dB_10 = 10*log10(data_10(:,2));
