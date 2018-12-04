@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "random.h": "c",
-        "signal.h": "c",
-        "lpf.h": "c",
-        "utils.h": "c"
-    }
-}
